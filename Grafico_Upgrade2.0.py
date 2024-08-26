@@ -1,8 +1,7 @@
 import pandas as pd
+import openpyxl
 import matplotlib.pyplot as plt
 import streamlit as st
-import os
-import pdfkit
 import requests
 import io
 
@@ -177,19 +176,3 @@ st.write(f"Total de B-BX: {total_bbx}")
 st.write(f"Substituidos: {total_ajuste_tarifa}")
 st.write("-----------------------------------------------------------")
 
-
-# Gerar um botão para baixar o PDF
-if st.button("Gerar PDF"):
-    # Salvar a página atual em HTML
-    path_html = "streamlit_page.html"
-    path_pdf = "streamlit_page.pdf"
-
-    # Capturar o conteúdo da página (usando a opção de salvar o HTML)
-    with open(path_html, "w") as f:
-        f.write(st.get_report_ctx().get_current().output)
-    
-    # Converter o HTML para PDF
-    pdfkit.from_file(path_html, path_pdf)
-
-    st.success("PDF gerado com sucesso!")
-    st.markdown(f"[Baixar PDF]({path_pdf})")
