@@ -1,6 +1,6 @@
 pandas
 matplotlib
-streamlit as st
+streamlit
 os
 pdfkit
 requests
