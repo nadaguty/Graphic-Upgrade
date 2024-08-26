@@ -1,7 +1,5 @@
 pandas
 matplotlib
 streamlit
-os
 pdfkit
 requests
-io
