@@ -1,0 +1,7 @@
+pandas
+matplotlib
+streamlit as st
+os
+pdfkit
+requests
+io
