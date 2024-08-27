@@ -4,11 +4,16 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import requests
 import io
+import json
 
-# URLs para baixar as planilhas como Excel
-url_base_upgrade = 'https://docs.google.com/spreadsheets/d/1-76VqussJFLUlGMjN4ackxbqIAKfyJRR/export?format=xlsx'
-url_historicobkp = 'https://docs.google.com/spreadsheets/d/1YkqbPjx8tIP5gLyyJdfnifribP8-tTiW/export?format=xlsx'
-url_reajuste =     'https://docs.google.com/spreadsheets/d/16D0Z2NfolRfa9tnXSZ7lLm3snL8KcHRq/export?format=xlsx'  # Substitua pela URL correta
+# Carregar o arquivo de configuração
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+# Acessar as URLs do arquivo de configuração
+url_base_upgrade = config['URL_BASE_UPGRADE']
+url_historicobkp = config['URL_HISTORICO_BKP']
+url_reajuste = config['URL_REAJUSTE']
 
 # Função para carregar um arquivo Excel de uma URL
 def load_excel_from_url(url):
