@@ -36,16 +36,17 @@ filtro_historicobkp = ['Ajuste tarifa']
 placas_reservadas = df_historicobkp[df_historicobkp['Motivo'].isin(filtro_historicobkp)].shape[0]  # Contagem total
 
 filtro_reajuste = ['Sim']
-placas_substituidas = df_reajuste[df_reajuste['REALIZOU A SUB?'].isin(filtro_reajuste)].shape[0]  # Contagem total
-reajuste_aplicado = df_reajuste[df_reajuste['APLICAÇÃO FEITA?'].isin(filtro_reajuste)].shape[0]  # Contagem total
-contratos_encerrados = df_reajuste[df_reajuste['CONTRATO ENC?'].isin(filtro_reajuste)].shape[0]
+placas_substituidas =   df_reajuste[df_reajuste['REALIZOU A SUB?'].isin(filtro_reajuste)].shape[0]  # Contagem total
+reajuste_aplicado =     df_reajuste[df_reajuste['APLICAÇÃO FEITA?'].isin(filtro_reajuste)].shape[0]  # Contagem total
+contratos_encerrados =  df_reajuste[df_reajuste['CONTRATO ENC?'].isin(filtro_reajuste)].shape[0]
+emails_enviados =       df_reajuste[df_reajuste['Email enviado?'].isin(filtro_reajuste)].shape[0]
 
 # 1. Contar o total de linhas na coluna B-BX onde o valor é 'B-BX'
 total_bbx = df_upgrade[df_upgrade['B-BX'] == 'B-BX'].shape[0]
 # 2. Filtrar os números de contrato na planilha df_upgrade onde o valor na coluna B-BX é 'B-BX'
 contratos_bbx = df_upgrade[df_upgrade['B-BX'] == 'B-BX']['CONTRATO_NRO'].unique()
 # 3. Verificar quantos desses contratos estão presentes na df_historicobkp com motivo 'Ajuste tarifa'
-contratos_ajuste_tarifa = df_historicobkp[df_historicobkp['Motivo'] == 'Ajuste tarifa']['Contrato'].unique()
+contratos_ajuste_tarifa = df_reajuste[df_reajuste['REALIZOU A SUB?'] == 'Sim']['CONTRATO'].unique()
 contratos_bbx_ajuste = [contrato for contrato in contratos_bbx if contrato in contratos_ajuste_tarifa]
 # Contar o total de contratos que satisfazem ambas as condições
 total_ajuste_tarifa = len(contratos_bbx_ajuste)
@@ -93,8 +94,8 @@ st.write(f"Diferença: {diferenca}")
 # -------------------------------------------------------------------------------------
 # Segundo gráfico: Placas Reservadas, Substituídas e Reajustes Aplicados
 chart_data_2 = pd.DataFrame({
-    'Status': ['Placas Reservadas', 'Placas Substituídas', 'Reajuste Aplicado', 'Contrato Encerrado'],
-    'Quantidade': [int(placas_reservadas), int(placas_substituidas), int(reajuste_aplicado), int(contratos_encerrados)]
+    'Status': ['Emails Enviados','Placas Reservadas', 'Placas Substituídas', 'Reajuste Aplicado', 'Contrato Encerrado'],
+    'Quantidade': [int(emails_enviados), int(placas_reservadas), int(placas_substituidas), int(reajuste_aplicado), int(contratos_encerrados)]
 })
 
 # Certifique-se de que todos os valores são inteiros
@@ -121,7 +122,7 @@ ax2.yaxis.grid(True)
 ax2.set_ylim(0, max(chart_data_2['Quantidade']) * 1.2)
 
 # Ajustar o tamanho da fonte das legendas do eixo X
-ax2.set_xticklabels(chart_data_2['Status'], fontsize=7)  # Reduzindo a fonte para 10
+ax2.set_xticklabels(chart_data_2['Status'], fontsize=6)  # Reduzindo a fonte para 10
 
 # Remover bordas desnecessárias
 for spine in ['top', 'right']:
@@ -131,6 +132,7 @@ for spine in ['top', 'right']:
 st.pyplot(fig2)
 
 # Exibir as quantidades no painel
+st.write(f"Total de Emails Enviados: {emails_enviados}")
 st.write(f"Total de Placas Reservadas: {placas_reservadas}")
 st.write(f"Total de Placas Substituídas: {placas_substituidas}")
 st.write(f"Total de Reajustes Aplicados: {reajuste_aplicado}")
