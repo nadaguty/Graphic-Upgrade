@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import requests
 import io
-import json
+import os
 
-# Carregar o arquivo de configuração
-with open('config.json') as config_file:
-    config = json.load(config_file)
+# Carregar as URLs das variáveis de ambiente
+url_base_upgrade = os.getenv('URL_BASE_UPGRADE')
+url_historicobkp = os.getenv('URL_HISTORICO_BKP')
+url_reajuste = os.getenv('URL_REAJUSTE')
 
-# Acessar as URLs do arquivo de configuração
-url_base_upgrade = config['URL_BASE_UPGRADE']
-url_historicobkp = config['URL_HISTORICO_BKP']
-url_reajuste = config['URL_REAJUSTE']
+# Verificar se as variáveis foram carregadas corretamente
+if not all([url_base_upgrade, url_historicobkp, url_reajuste]):
+    raise ValueError("Uma ou mais variáveis de ambiente não foram carregadas corretamente.")
 
 # Função para carregar um arquivo Excel de uma URL
 def load_excel_from_url(url):
@@ -21,7 +21,7 @@ def load_excel_from_url(url):
     response.raise_for_status()  # Levanta um erro se a requisição falhar
     return pd.read_excel(io.BytesIO(response.content), engine='openpyxl')
 
-# Carregar as planilhas usando as URLs
+# Carregar as planilhas usando as URLs das variáveis de ambiente
 df_upgrade = load_excel_from_url(url_base_upgrade)
 df_historicobkp = load_excel_from_url(url_historicobkp)
 df_reajuste = load_excel_from_url(url_reajuste)
