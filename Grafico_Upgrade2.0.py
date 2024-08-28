@@ -33,8 +33,11 @@ total_contratos = df_upgrade['CONTRATO_NRO'].nunique()
 # Contar quantos contratos são Upsell
 total_upsell = df_upgrade[df_upgrade['UPSELL'] == 'UPSELL']['CONTRATO_NRO'].nunique()
 
+#contar quantos contratos são Moover
+total_moover = df_upgrade[df_upgrade['SEGMENTO'] == 'MOOVER']['CONTRATO_NRO'].nunique()
+
 # Calcular a diferença entre o total de contratos e o total de Upsell
-diferenca = total_contratos - total_upsell
+diferenca = total_contratos - total_upsell - total_moover
 
 # Verifica placas reservadas
 filtro_historicobkp = ['Ajuste tarifa']
@@ -59,8 +62,8 @@ total_ajuste_tarifa = len(contratos_bbx_ajuste)
 # -------------------------------------------------------------------------------------
 # Primeiro gráfico: Contratos e Upsell
 chart_data = pd.DataFrame({
-    'Status': ['Total de Contratos', 'Upsell'],
-    'Quantidade': [total_contratos, total_upsell]
+    'Status': ['Total de Contratos', 'Upsell', 'Moover'],
+    'Quantidade': [total_contratos, total_upsell, total_moover]
 })
 
 fig, ax = plt.subplots()
@@ -93,6 +96,7 @@ st.pyplot(fig)
 # Exibir as quantidades no painel
 st.write(f"Total de Contratos: {total_contratos}")
 st.write(f"Total de Contratos Upsell: {total_upsell}")
+st.write(f"Total de Contratos Moover {total_moover}")
 st.write(f"Diferença: {diferenca}")
 
 
