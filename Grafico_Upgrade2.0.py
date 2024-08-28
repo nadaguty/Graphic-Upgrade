@@ -96,7 +96,7 @@ chart_data = pd.DataFrame({
 })
 
 fig, ax = plt.subplots()
-bars = ax.bar(chart_data['Status'], chart_data['Quantidade'], color='orange')
+bars = ax.bar(chart_data['Status'], chart_data['Quantidade'], color=['orange', 'orange', '#7f3e98'])
 
 # Adicionar valores acima das barras
 for bar in bars:
@@ -174,7 +174,7 @@ st.write(f"Total de Emails Enviados: {emails_enviados}")
 st.write(f"Total de Placas Reservadas: {placas_reservadas}")
 st.write(f"Total de Placas Substituídas: {placas_substituidas}")
 st.write(f"Total de Reajustes Aplicados: {reajuste_aplicado}")
-st.write(f"Total de Reajustes Aplicados: {contratos_encerrados}")
+st.write(f"Total de Contratos Encerrados: {contratos_encerrados}")
 
 #-------------------------------------------------------------------------
 # 3 Terceiro grafico: B para BX
