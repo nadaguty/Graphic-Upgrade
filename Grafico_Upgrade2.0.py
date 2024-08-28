@@ -12,6 +12,7 @@ url_historicobkp = os.getenv('URL_HISTORICO_BKP')
 url_reajuste = os.getenv('URL_REAJUSTE')
 
 # Depuração: Verificar se as variáveis de ambiente estão carregadas
+# Não precisa ficar visivel no comando
 st.write("URL Base Upgrade:", url_base_upgrade)
 st.write("URL Histórico BKP:", url_historicobkp)
 st.write("URL Reajuste:", url_reajuste)
@@ -68,6 +69,7 @@ total_ajuste_tarifa = len(contratos_bbx_ajuste)
 # Filtrar a planilha para 'APLICAÇÃO FEITA?' == 'Sim'
 df_filtrado = df_reajuste[df_reajuste['APLICAÇÃO FEITA?'] == 'Sim']
 
+#Comando teste
 # Remover vírgulas e pontos e converter as colunas para float (tratando formato brasileiro)
 #df_filtrado['VALOR_REAJUSTE_GRUPO_CONTRATO'] = df_filtrado['VALOR_REAJUSTE_GRUPO_CONTRATO'].replace('.', '', regex=True).replace(',', '.', regex=True).astype(float)
 #df_filtrado['VALOR_REAJUSTE_GRUPO_RESERVA'] = df_filtrado['VALOR_REAJUSTE_GRUPO_RESERVA'].replace('.', '', regex=True).replace(',', '.', regex=True).astype(float)
@@ -108,7 +110,7 @@ for bar in bars:
 
 # Configurações do gráfico
 ax.set_title("Contratos e Upsell")
-ax.set_xlabel("Tipo")
+ax.set_xlabel("Status")
 ax.set_ylabel("Quantidade")
 ax.yaxis.grid(True)
 ax.set_ylim(0, max(chart_data['Quantidade']) * 1.2)
@@ -138,7 +140,7 @@ chart_data_2 = pd.DataFrame({
 chart_data_2['Quantidade'] = chart_data_2['Quantidade'].astype(int)
 
 fig2, ax2 = plt.subplots()
-bars2 = ax2.bar(chart_data_2['Status'], chart_data_2['Quantidade'], color='orange')
+bars2 = ax2.bar(chart_data_2['Status'], chart_data_2['Quantidade'], color='#ff7f0e')
 
 # Adicionar valores acima das barras
 for bar in bars2:
@@ -197,7 +199,7 @@ for bar in bars3:
 
 # Configurações do gráfico
 ax3.set_title("Total de B para BX")
-ax3.set_xlabel("Tipo")
+ax3.set_xlabel("Status")
 ax3.set_ylabel("Quantidade")
 ax3.yaxis.grid(True)
 ax3.set_ylim(0, max(chart_data_3['Quantidade']) * 1.2)
