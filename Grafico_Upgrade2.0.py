@@ -13,9 +13,9 @@ url_reajuste = os.getenv('URL_REAJUSTE')
 
 # Depuração: Verificar se as variáveis de ambiente estão carregadas
 # Não precisa ficar visivel no comando
-st.write("URL Base Upgrade:", url_base_upgrade)
-st.write("URL Histórico BKP:", url_historicobkp)
-st.write("URL Reajuste:", url_reajuste)
+#st.write("URL Base Upgrade:", url_base_upgrade)
+#st.write("URL Histórico BKP:", url_historicobkp)
+#st.write("URL Reajuste:", url_reajuste)
 
 # Verificar se as variáveis foram carregadas corretamente
 if not all([url_base_upgrade, url_historicobkp, url_reajuste]):
